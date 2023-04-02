@@ -15,7 +15,7 @@
 #define CAN_COM_H
 
 #include <CAN.h>
-#include <simpletimeout.h>
+#include <intellitimeout.h>
 
 #include "intelliled.h"
 
@@ -76,7 +76,7 @@ class CAN_COM {
 
     uint8_t _filter_count;
 
-    SIMPLETIMEOUT _alive_timeout;
+    INTELLITIMEOUT _alive_timeout;
     bool _alive;
 
     INTELLILED _led_r;

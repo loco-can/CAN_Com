@@ -15,7 +15,7 @@
 #include <RokkitHash.h>
 
 #include "can_com.h"
-#include "simpletimeout.h"
+#include "intellitimeout.h"
 
 #define DEBUG
 
