@@ -15,7 +15,7 @@
 #include <RokkitHash.h>
 
 #include "can_com.h"
-#include "intellitimeout.h"
+#include "intelliTimeout.h"
 
 #define DEBUG
 
@@ -77,7 +77,6 @@ bool CAN_COM::_begin(long speed) {
   
   while (!CAN.begin(speed)) {
 
-
     #ifdef DEBUG
       Serial.println("Starting CAN failed!");
     #endif
@@ -98,7 +97,26 @@ bool CAN_COM::_begin(long speed) {
   }
 
   #ifdef DEBUG
-    Serial.println("OK!");
+    Serial.print("status LED ");
+
+    if (_led_w.available()) {
+      Serial.print("r on port ");
+      Serial.print(_led_r.port());
+      Serial.print(", w on port ");
+      Serial.println(_led_w.port());
+    }
+
+    else {
+      Serial.print("r/w on port ");
+      Serial.println(_led_r.port());
+    }
+
+    Serial.print("Device UUID: ");
+    Serial.println(uuid(), HEX);
+
+    Serial.println("CAN startup OK!");
+
+    Serial.println();
   #endif
 
   clear_filter();

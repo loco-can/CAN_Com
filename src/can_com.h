@@ -15,9 +15,9 @@
 #define CAN_COM_H
 
 #include <CAN.h>
-#include <intellitimeout.h>
 
-#include "intelliled.h"
+#include <intelliTimeout.h>
+#include "intelliLed.h"
 
 
 /*

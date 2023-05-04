@@ -13,7 +13,7 @@ The read method can register filters to simply select different commands from th
 
 It is based on the libraries:
 
-* SimpleTimeout https://github.com/nibble-arts/Arduino_SimpleTimeout
+* intlliTimeout https://github.com/loco-can/intellitimeout
 * CAN https://github.com/sandeepmistry/arduino-CAN for use with Microchips MPC2515
 * ArduinoUniquID https://github.com/ricaun/ArduinoUniqueID
 * RokkitHash https://github.com/SukkoPera/Arduino-Rokkit-Hash
