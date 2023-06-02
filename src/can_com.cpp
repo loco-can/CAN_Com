@@ -169,6 +169,8 @@ bool CAN_COM::send(uint8_t* data, uint8_t length, uint32_t id) {
 
   uint8_t i = 0;
 
+  delay(10);
+
   // blink write status led if exists, else read
   if (_led_w.available()) {
     _led_w.on();
@@ -212,7 +214,6 @@ uint16_t CAN_COM::read(CAN_MESSAGE* message) {
   uint8_t i;
   uint8_t size;
   uint32_t can_id;
-
 
   // check and connection and update alive status
   _alive = !_alive_timeout.check();
