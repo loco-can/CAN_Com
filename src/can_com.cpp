@@ -222,7 +222,7 @@ uint16_t CAN_COM::read(CAN_MESSAGE* message) {
   // check for package
   size = CAN.parsePacket();
 
-  // received a packet
+  // received a package
   if (size) {
 
     _led_r.on();
@@ -257,6 +257,8 @@ uint16_t CAN_COM::read(CAN_MESSAGE* message) {
       message->uuid = 0;
     }
     
+    _led_r.off();
+
     // check for filter criteriy
     if (_filter_count == 0) {
       return message->id;
@@ -274,7 +276,6 @@ uint16_t CAN_COM::read(CAN_MESSAGE* message) {
       i++;
     }
 
-    _led_r.off();
   }
 
   return false;
