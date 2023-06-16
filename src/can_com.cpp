@@ -30,9 +30,14 @@ CAN_COM::CAN_COM() {
 
 /*
  * create CAN communication
- * set CS and INT ports
+ * Arduino set CS and INT ports MCP2515
+ * ESP32 set CRX and CTX pins (4, 5)
  */
 CAN_COM::CAN_COM(uint8_t CS, uint8_t INT) {
+
+  _cs = CS;
+  _int = INT;
+
   CAN.setPins(CS, INT);
   create_uuid();
 }
@@ -73,6 +78,18 @@ bool CAN_COM::_begin(long speed) {
     Serial.print("Start CAN at ");
     Serial.print(speed);
     Serial.println(" bps");
+
+    #ifdef ARDUINO_ARCH_ESP32
+      Serial.print("SJA1000 RX ");
+      Serial.print(_cs);
+      Serial.print(" - TX ");
+      Serial.println(_int);
+    #elif
+      Serial.print("MCP2551 CS ");
+      Serial.print(_cs);
+      Serial.print(" - INT ");
+      Serial.println(_int);
+    #endif
   #endif
   
   while (!CAN.begin(speed)) {
@@ -96,8 +113,9 @@ bool CAN_COM::_begin(long speed) {
     delay(1000);
   }
 
+
   #ifdef DEBUG
-    Serial.print("status LED ");
+    Serial.print("CAN status led port ");
 
     if (_led_w.available()) {
       Serial.print("r on port ");
@@ -113,13 +131,9 @@ bool CAN_COM::_begin(long speed) {
 
     Serial.print("Device UUID: ");
     Serial.println(uuid(), HEX);
-
-    Serial.println("CAN startup OK!");
-
-    Serial.println();
   #endif
 
-  clear_filter();
+  _filter_count = 0;
   
   set_alive(CAN_ALIVE_TIMEOUT);
 
@@ -131,6 +145,11 @@ bool CAN_COM::_begin(long speed) {
   if (_led_w.available()) {
     _led_w.off();
   }
+
+  #ifdef DEBUG
+    Serial.println("CAN startup OK!");
+    Serial.println();
+  #endif
 
   return true;
 }

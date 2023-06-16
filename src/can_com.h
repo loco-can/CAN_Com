@@ -71,6 +71,9 @@ class CAN_COM {
     bool _begin(long speed);
     long _uuid;
 
+    uint8_t _cs;
+    uint8_t _int;
+    
     uint16_t _masks[CAN_MAX_FILTER];
     uint16_t _filters[CAN_MAX_FILTER];
 
